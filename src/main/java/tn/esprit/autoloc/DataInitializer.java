@@ -21,35 +21,32 @@ public class DataInitializer implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         if (vehiculeRepository.count() == 0) {
-            Vehicule v1 = new Vehicule(
-                    null,
-                    "200-TUN-1234",
-                    "Peugeot",
-                    "208",
-                    CategorieVehicule.CITADINE,
-                    new BigDecimal("90.00"),
-                    StatutVehicule.DISPONIBLE
-            );
+            Vehicule v1 = Vehicule.builder()
+                    .immatriculation("200-TUN-1234")
+                    .marque("Peugeot")
+                    .modele("208")
+                    .categorie(CategorieVehicule.CITADINE)
+                    .tarifJournalier(new BigDecimal("90.00"))
+                    .statut(StatutVehicule.DISPONIBLE)
+                    .build();
 
-            Vehicule v2 = new Vehicule(
-                    null,
-                    "210-TUN-5678",
-                    "Volkswagen",
-                    "Golf 8",
-                    CategorieVehicule.BERLINE,
-                    new BigDecimal("150.00"),
-                    StatutVehicule.LOUE
-            );
+            Vehicule v2 = Vehicule.builder()
+                    .immatriculation("210-TUN-5678")
+                    .marque("Volkswagen")
+                    .modele("Golf 8")
+                    .categorie(CategorieVehicule.BERLINE)
+                    .tarifJournalier(new BigDecimal("150.00"))
+                    .statut(StatutVehicule.LOUE)
+                    .build();
 
-            Vehicule v3 = new Vehicule(
-                    null,
-                    "220-TUN-9012",
-                    "Hyundai",
-                    "Tucson",
-                    CategorieVehicule.SUV,
-                    new BigDecimal("210.00"),
-                    StatutVehicule.MAINTENANCE
-            );
+            Vehicule v3 = Vehicule.builder()
+                    .immatriculation("220-TUN-9012")
+                    .marque("Hyundai")
+                    .modele("Tucson")
+                    .categorie(CategorieVehicule.SUV)
+                    .tarifJournalier(new BigDecimal("210.00"))
+                    .statut(StatutVehicule.MAINTENANCE)
+                    .build();
 
             vehiculeRepository.save(v1);
             vehiculeRepository.save(v2);

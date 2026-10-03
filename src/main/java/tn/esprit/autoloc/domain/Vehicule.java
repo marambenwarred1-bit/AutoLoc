@@ -1,10 +1,7 @@
 package tn.esprit.autoloc.domain;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -14,6 +11,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder // Permet d'utiliser le pattern Builder pour créer des instances facilement
 public class Vehicule {
 
     @Id
@@ -40,16 +38,16 @@ public class Vehicule {
     @Column(nullable = false, length = 20)
     private StatutVehicule statut;
 
-    // Association *-1 avec Agence : Plusieurs véhicules appartiennent à une agence
+    // Association *-1 avec Agence
     @ManyToOne
     @JoinColumn(name = "agence_id")
     private Agence agence;
 
-    // Association 1-* avec Maintenance : Un véhicule subit plusieurs maintenances
+    // Association 1-* avec Maintenance
     @OneToMany(mappedBy = "vehicule", cascade = CascadeType.ALL)
     private List<Maintenance> maintenances;
 
-    // Association *-* avec Equipement : Un véhicule possède plusieurs équipements (Génère la table de jointure)
+    // Association *-* avec Equipement
     @ManyToMany
     @JoinTable(
             name = "vehicule_equipement",
@@ -58,7 +56,7 @@ public class Vehicule {
     )
     private List<Equipement> equipements;
 
-    // Association 1-* avec Reservation : Un véhicule fait l'objet de plusieurs réservations
+    // Association 1-* avec Reservation
     @OneToMany(mappedBy = "vehicule")
     private List<Reservation> reservations;
 }
