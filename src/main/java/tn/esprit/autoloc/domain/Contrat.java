@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "contrat")
@@ -28,4 +29,13 @@ public class Contrat {
 
     @Column(nullable = false)
     private Boolean valide;
+
+    // Association 1-1 avec Reservation : Un contrat correspond à une réservation (Porteur de la FK)
+    @OneToOne
+    @JoinColumn(name = "reservation_id")
+    private Reservation reservation;
+
+    // Composition 1-* avec Paiement (Contrat détient la collection de paiements)
+    @OneToMany(mappedBy = "contrat", cascade = CascadeType.ALL)
+    private List<Paiement> paiements;
 }

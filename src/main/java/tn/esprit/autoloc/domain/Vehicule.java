@@ -5,8 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 @Table(name = "vehicule")
@@ -39,4 +39,26 @@ public class Vehicule {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
     private StatutVehicule statut;
+
+    // Association *-1 avec Agence : Plusieurs véhicules appartiennent à une agence
+    @ManyToOne
+    @JoinColumn(name = "agence_id")
+    private Agence agence;
+
+    // Association 1-* avec Maintenance : Un véhicule subit plusieurs maintenances
+    @OneToMany(mappedBy = "vehicule", cascade = CascadeType.ALL)
+    private List<Maintenance> maintenances;
+
+    // Association *-* avec Equipement : Un véhicule possède plusieurs équipements (Génère la table de jointure)
+    @ManyToMany
+    @JoinTable(
+            name = "vehicule_equipement",
+            joinColumns = @JoinColumn(name = "vehicule_id"),
+            inverseJoinColumns = @JoinColumn(name = "equipement_id")
+    )
+    private List<Equipement> equipements;
+
+    // Association 1-* avec Reservation : Un véhicule fait l'objet de plusieurs réservations
+    @OneToMany(mappedBy = "vehicule")
+    private List<Reservation> reservations;
 }

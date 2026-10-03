@@ -26,4 +26,9 @@ public class Maintenance {
 
     @Column(length = 255)
     private String description;
+
+    // Association *-1 avec Vehicule : Plusieurs maintenances s'appliquent à un véhicule
+    @ManyToOne
+    @JoinColumn(name = "vehicule_id")
+    private Vehicule vehicule;
 }
