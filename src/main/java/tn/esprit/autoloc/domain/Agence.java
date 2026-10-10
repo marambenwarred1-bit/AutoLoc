@@ -38,4 +38,5 @@ public class Agence {
     // Association 1-* avec Vehicule : Une agence détient plusieurs véhicules
     @OneToMany(mappedBy = "agence", cascade = CascadeType.ALL)
     private List<Vehicule> vehicules;
+
 }

@@ -1,0 +1,18 @@
+package tn.esprit.autoloc.service;
+
+import org.springframework.stereotype.Service;
+import tn.esprit.autoloc.domain.Maintenance;
+import tn.esprit.autoloc.repository.MaintenanceRepository;
+import java.util.List;
+
+@Service
+public class MaintenanceService implements IMaintenanceService {
+    private final MaintenanceRepository maintenanceRepository;
+    public MaintenanceService(MaintenanceRepository maintenanceRepository) { this.maintenanceRepository = maintenanceRepository; }
+
+    @Override public List<Maintenance> retrieveAllMaintenances() { return (List<Maintenance>) maintenanceRepository.findAll(); }
+    @Override public Maintenance addMaintenance(Maintenance maintenance) { return maintenanceRepository.save(maintenance); }
+    @Override public Maintenance updateMaintenance(Maintenance maintenance) { return maintenanceRepository.save(maintenance); }
+    @Override public Maintenance retrieveMaintenance(Long idMaintenance) { return maintenanceRepository.findById(idMaintenance).orElse(null); }
+    @Override public void removeMaintenance(Long idMaintenance) { maintenanceRepository.deleteById(idMaintenance); }
+}
