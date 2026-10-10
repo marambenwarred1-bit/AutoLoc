@@ -1,16 +1,13 @@
 package tn.esprit.autoloc.service;
 
-import tn.esprit.autoloc.domain.Client;
-
+import tn.esprit.autoloc.web.dto.ClientResponseDTO;
 import java.util.List;
 
 public interface IClientService {
-    List<Client> retrieveAllClients();
-    Client addClient(Client e);
-    Client updateClient(Client e);
-    Client retrieveClient(Long idClient);
+    List<ClientResponseDTO> retrieveAllClients();
+    ClientResponseDTO retrieveClient(Long idClient);
+    ClientResponseDTO addClient(ClientResponseDTO clientDto);
+    ClientResponseDTO updateClient(ClientResponseDTO clientDto);
     void removeClient(Long idClient);
-    List<Client> addClients (List<Client> Clients);
-
-
+    List<ClientResponseDTO> addClients(List<ClientResponseDTO> clientDtos);
 }

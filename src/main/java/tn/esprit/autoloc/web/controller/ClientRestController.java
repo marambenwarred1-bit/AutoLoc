@@ -4,14 +4,13 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
-import tn.esprit.autoloc.domain.Client;
 import tn.esprit.autoloc.service.IClientService;
-
+import tn.esprit.autoloc.web.dto.ClientResponseDTO;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/clients")
-@Tag(name = "Client Management", description = "Opérations CRUD pour la gestion des clients")
+@Tag(name = "Client Management", description = "Opérations CRUD avec DTO pour la gestion des clients")
 public class ClientRestController {
 
     private final IClientService clientService;
@@ -20,33 +19,33 @@ public class ClientRestController {
         this.clientService = clientService;
     }
 
-    @Operation(summary = "Récupérer tous les clients")
+    @Operation(summary = "Récupérer tous les clients (DTO)")
     @ApiResponse(responseCode = "200", description = "Liste des clients récupérée avec succès")
     @GetMapping
-    public List<Client> getAllClients() {
+    public List<ClientResponseDTO> getAllClients() {
         return clientService.retrieveAllClients();
     }
 
-    @Operation(summary = "Récupérer un client par son ID")
+    @Operation(summary = "Récupérer un client par son ID (DTO)")
     @ApiResponse(responseCode = "200", description = "Client trouvé")
     @ApiResponse(responseCode = "404", description = "Client non trouvé")
     @GetMapping("/{id}")
-    public Client getClientById(@PathVariable("id") Long id) {
+    public ClientResponseDTO getClientById(@PathVariable("id") Long id) {
         return clientService.retrieveClient(id);
     }
 
-    @Operation(summary = "Ajouter un nouveau client")
+    @Operation(summary = "Ajouter un nouveau client (DTO)")
     @ApiResponse(responseCode = "201", description = "Client créé avec succès")
     @PostMapping
-    public Client createClient(@RequestBody Client client) {
-        return clientService.addClient(client);
+    public ClientResponseDTO createClient(@RequestBody ClientResponseDTO clientDto) {
+        return clientService.addClient(clientDto);
     }
 
-    @Operation(summary = "Mettre à jour un client existant")
+    @Operation(summary = "Mettre à jour un client existant (DTO)")
     @ApiResponse(responseCode = "200", description = "Client mis à jour avec succès")
     @PutMapping
-    public Client updateClient(@RequestBody Client client) {
-        return clientService.updateClient(client);
+    public ClientResponseDTO updateClient(@RequestBody ClientResponseDTO clientDto) {
+        return clientService.updateClient(clientDto);
     }
 
     @Operation(summary = "Supprimer un client par son ID")
